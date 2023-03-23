@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag && Drop</title>
+    <link href="style.css" rel="stylesheet">
+    <script src="index.js"></script>
+</head>
+<body class="p-10 relative bg-emerald-100">
+    <h1 class="text-6xl mb-10 font-extrabold">Drag && Drop</h1>
+    <main class="grid h-screen gap-10 grid-cols-3 mt-6">
+        <div class="kanban-table bg-white rounded-3xl transition-colors">
+            <h2 class="mt-7 my-7 px-7 text-4xl font-semibold">New</h2>
+            <div class="task p-7 mr-14 cursor-grab bg-yellow-100 rounded-tr-3xl rounded-br-3xl">
+                <h3 class="font-semibold mb-3">[ORI] Добавить кнопку "скопировать номер задачи"</h3>
+                <p class="">Разработчикам часто приходится копироваться номер задачи (для комитов в git, названия веток и т.п.). Хочется сделать quality of life change, сделать так, чтобы копировать задачу было проще.</p>
+            </div>
+            <div class="task p-7 mr-14 cursor-grab bg-yellow-100 rounded-tr-3xl rounded-br-3xl">
+                <h3 class="font-semibold mb-3">[ORI] Ограничить списание времени Regular, если общее количество списанного времени превышает Estimate</h3>
+                <p class="">В Oggetto используется плагин для повышения удобства использования redmine Oggetto redmine improvements.
+                    Используем через Tampermonkey. Автор плагина - Денис Обухов.</p>
+            </div>
+            <div class="task p-7 mr-14 cursor-grab bg-yellow-100 rounded-tr-3xl rounded-br-3xl">
+                <h3 class="font-semibold mb-3">	Планы развития 2023 | Алексей Левченко</h3>
+                <p class=""></p>
+            </div>
+        </div>
+        <div class="kanban-table bg-white rounded-3xl transition-colors">
+            <h2 class="p-7 text-3xl font-semibold">In Progress</h2>
+        </div>
+        <div class="kanban-table bg-white rounded-3xl transition-colors">
+            <h2 class="p-7 text-3xl font-semibold">Done</h2>
+        </div>
+    </main>
+    <script type="module" src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.kanban-table__move-task {
+    border: 5px solid crimson;
+}
+
+.task {
+    transition: transform .6s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.task_move {
+    transform: scale(.65);
+}
