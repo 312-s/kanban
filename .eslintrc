@@ -1,0 +1,6 @@
+{
+  "extends": "@oggetto",
+  "parserOptions": {
+    "ecmaVersion": 13
+  }
+}

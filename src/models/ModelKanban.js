@@ -1,4 +1,4 @@
-import ModelTask from "./ModelTask.js";
+import ModelTask from './ModelTask.js';
 
 export default class Kanban {
     constructor() {
@@ -9,6 +9,7 @@ export default class Kanban {
     }
 
     #tasks;
+
     #localStorageKeys = {
         tasks: 'tasks',
     };
@@ -40,19 +41,21 @@ export default class Kanban {
      */
     #saveData = () => {
         this.tasks.sort((taskA, taskB) => {
-            return taskB.order - taskA.order
+            return taskB.order - taskA.order;
         });
         this.tasks.forEach((task, index, tasks) => {
             task.order = tasks.length - 1 - index;
             task.index = index;
         });
+        // eslint-disable-next-line max-len
         window.localStorage.setItem(this.#localStorageKeys.tasks, this.#deserializeTasks(this.tasks));
-    }
+    };
 
     /**
      * Load new, in progress and done the tasks from localStorage
      */
     #loadData() {
+        // eslint-disable-next-line max-len
         this.#tasks = this.#serializeTasks(window.localStorage.getItem(this.#localStorageKeys.tasks));
     }
 
@@ -70,7 +73,7 @@ export default class Kanban {
      * @param taskArrayJSON {string}
      * @return {Array}
      */
-    #serializeTasks = (taskArrayJSON) => {
+    #serializeTasks = taskArrayJSON => {
         return JSON.parse(taskArrayJSON)?.map(task => ModelTask.serialize(task)) ?? [];
-    }
+    };
 }

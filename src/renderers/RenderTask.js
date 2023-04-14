@@ -1,8 +1,8 @@
 export default class RenderTask {
     static attributes = {
         order: 'data-order',
-        index: 'data-index'
-    }
+        index: 'data-index',
+    };
 
     #template = document.getElementById('task-template');
 
@@ -11,15 +11,17 @@ export default class RenderTask {
      * @param task {ModelTask} - Data model of Task
      * @return {HTMLDivElement}
      */
-    renderTask = (task) => {
+    renderTask = task => {
         /** @type {HTMLDivElement} */
         const taskElement = this.#template.content.firstElementChild.cloneNode(true);
+
         taskElement.querySelector('[data-role=task-title]').innerText = task.title;
         taskElement.querySelector('[data-role=task-detail]').innerText = task.detail;
         RenderTask.setOrder(taskElement, task.order);
         RenderTask.setIndex(taskElement, task.index);
+
         return taskElement;
-    }
+    };
 
     /**
      * Get order of Task Element
@@ -27,7 +29,7 @@ export default class RenderTask {
      * @return {number}
      */
     static getOrder(task) {
-        return Number.parseInt(task.getAttribute(RenderTask.attributes.order));
+        return Number.parseInt(task.getAttribute(RenderTask.attributes.order), 10);
     }
 
     /**

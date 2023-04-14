@@ -7,7 +7,7 @@ export default class ModelTask {
      * @param index {number}
      * @param order {number}
      */
-    constructor(title, detail, group, index, order= 0) {
+    constructor(title, detail, group, index, order = 0) {
         this.#title = title;
         this.#detail = detail;
         this.#group = group;
@@ -16,10 +16,15 @@ export default class ModelTask {
     }
 
     #title;
+
     #detail;
+
     #group;
+
     #order;
+
     #index;
+
     #element;
 
     /**
@@ -101,8 +106,8 @@ export default class ModelTask {
             detail: this.detail,
             order: this.order,
             group: this.group,
-            index: this.index
-        }
+            index: this.index,
+        };
     }
 
     /**
@@ -120,6 +125,7 @@ export default class ModelTask {
      */
     static serialize(taskJSON) {
         const taskDataStructure = JSON.parse(taskJSON);
+
         return new ModelTask(
             taskDataStructure.title,
             taskDataStructure.detail,

@@ -1,8 +1,8 @@
-import ModelKanban from "./models/ModelKanban.js";
-import RenderKanban from "./renderers/RenderKanban.js";
-import ModelTask from "./models/ModelTask.js";
-import DragAndDrop from "./DragAndDrop.js";
-import RenderTask from "./renderers/RenderTask.js";
+import ModelKanban from './models/ModelKanban.js';
+import RenderKanban from './renderers/RenderKanban.js';
+import ModelTask from './models/ModelTask.js';
+import DragAndDrop from './DragAndDrop.js';
+import RenderTask from './renderers/RenderTask.js';
 
 export default class Kanban {
     constructor() {
@@ -12,8 +12,11 @@ export default class Kanban {
     }
 
     #modelKanban = new ModelKanban();
+
     #kanbanRenderer = new RenderKanban();
+
     #taskDragAndDropController;
+
     #tasksElements;
 
     /**
@@ -22,9 +25,17 @@ export default class Kanban {
      * @param detail {string}
      */
     addTask(title, detail) {
-        const addingTask = new ModelTask(title, detail, this.#kanbanRenderer.nameInitialColumn, this.#modelKanban.tasks.length, 0);
+        const addingTask = new ModelTask(
+            title,
+            detail,
+            this.#kanbanRenderer.nameInitialColumn,
+            this.#modelKanban.tasks.length,
+            0,
+        );
+
         this.#modelKanban.addTask(addingTask);
         const newTaskElement = this.#kanbanRenderer.displayTask(addingTask);
+
         this.#tasksElements.push(newTaskElement);
 
         this.#updateOrderElementsBelow(newTaskElement);
@@ -49,13 +60,17 @@ export default class Kanban {
 
     #updateElementOrder(element) {
         const indexCurrentElement = RenderTask.getIndex(element);
-        let newOrderCurrentElement = element.previousElementSibling ? RenderTask.getOrder(element.previousElementSibling) + 1 : 0;
+        let newOrderCurrentElement = 0;
+
+        if (element.previousElementSibling) {
+            newOrderCurrentElement = RenderTask.getOrder(element.previousElementSibling) + 1;
+        }
 
         this.#modelKanban.tasks[indexCurrentElement].order = newOrderCurrentElement;
         RenderTask.setOrder(this.#tasksElements[indexCurrentElement], newOrderCurrentElement);
     }
 
-    #onDropElement = (event) => {
+    #onDropElement = event => {
         /** @type {HTMLDivElement} */
         const taskElement = event.detail.element;
         const indexMovingTask = RenderTask.getIndex(taskElement);
@@ -65,5 +80,5 @@ export default class Kanban {
         this.#updateOrderElementsBelow(taskElement);
 
         this.#modelKanban.moveTaskBetweenColumns(indexMovingTask, destinationColumnName);
-    }
+    };
 }

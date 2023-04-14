@@ -10,18 +10,18 @@ const openModal = document.querySelector('[data-role=show-modal]');
 
 openModal.addEventListener('click', () => {
     dialog.showModal();
-})
+});
 
 closeModal.addEventListener('click', () => {
     dialog.close();
-})
+});
 
-document.forms[0].addEventListener('submit', function (event) {
+document.forms[0].addEventListener('submit', function(event) {
     event.preventDefault();
 
     const formData = Object.fromEntries(new FormData(this).entries());
+
     kanban.addTask(formData.title, formData.detail);
     dialog.close();
     this.reset();
 });
-

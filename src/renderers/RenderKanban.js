@@ -1,20 +1,22 @@
-import RenderTask from "./RenderTask.js";
+import RenderTask from './RenderTask.js';
 
 export default class RenderKanban extends RenderTask {
     #taskRenderer = new RenderTask();
+
     #nameInitialColumn = 'new';
+
     #kanbanColumns = {
         new: {
             name: this.#nameInitialColumn,
-            element: document.getElementById('kanban-new')
+            element: document.getElementById('kanban-new'),
         },
         inProgress: {
             name: 'inProgress',
-            element: document.getElementById('kanban-in-progress')
+            element: document.getElementById('kanban-in-progress'),
         },
         done: {
             name: 'done',
-            element: document.getElementById('kanban-done')
+            element: document.getElementById('kanban-done'),
         },
     };
 
@@ -27,11 +29,13 @@ export default class RenderKanban extends RenderTask {
      * @param tasks {ModelTask | ModelTask[]}
      * @return {HTMLDivElement}
      */
-    displayTask = (tasks) => {
+    displayTask = tasks => {
         const taskElement = this.#taskRenderer.renderTask(tasks);
+
         this.#kanbanColumns[tasks.group].element.prepend(taskElement);
+
         return taskElement;
-    }
+    };
 
     /**
      * Display tasks in kanban columns and return an array of displayed items
@@ -45,6 +49,6 @@ export default class RenderKanban extends RenderTask {
             taskElements[index] = this.displayTask(task);
         });
 
-        return  taskElements;
+        return taskElements;
     }
 }

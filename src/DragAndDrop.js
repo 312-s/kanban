@@ -8,33 +8,40 @@ export default class DragAndDrop {
     constructor(
         classDraggableElements,
         selectorDropLocations,
-        draggableElements = null
+        draggableElements = null,
     ) {
         if (draggableElements === null) {
             draggableElements = Array.from(document.getElementsByClassName(classDraggableElements));
         }
 
         draggableElements.forEach(element => {
-            this.initEventsOnDraggableElements(element)
+            this.initEventsOnDraggableElements(element);
         });
 
         this.#selectorDropLocations = selectorDropLocations;
-        this.#selectorDraggableElements = '.' + classDraggableElements;
+        this.#selectorDraggableElements = `.${classDraggableElements}`;
     }
 
     #selectorDropLocations = '';
+
     #selectorDraggableElements = '';
+
     #draggableElement = null;
+
     #draggableElementPlaceholder = document.createElement('div');
+
     #grabCoordinationX = 0;
+
     #grabCoordinationY = 0;
+
     #currentDropLocation = null;
+
     #locationBelowCursor = null;
 
     /**
      * @param event {MouseEvent}
      */
-    grab = (event) => {
+    grab = event => {
         if (event.button || event.ctrlKey) {
             return;
         }
@@ -49,9 +56,9 @@ export default class DragAndDrop {
         this.#fixAppearanceElement(this.#draggableElement);
         this.#draggableElement.before(this.#draggableElementPlaceholder);
         document.addEventListener('mousemove', this.move);
-    }
+    };
 
-    move = (event) => {
+    move = event => {
         this.#setAbsolutePosition();
 
         this.#draggableElement.style.pointerEvents = 'none';
@@ -80,9 +87,9 @@ export default class DragAndDrop {
             }
         }
         this.#draggableElement.style.pointerEvents = 'auto';
-    }
+    };
 
-    drop = (event) => {
+    drop = event => {
         if (this.#currentDropLocation && !this.#currentDropLocation.contains(this.#draggableElementPlaceholder)) {
             const draggableElementCenterPage = this.#getCenterYElementRelativePage(this.#currentDropLocation);
 
@@ -91,20 +98,19 @@ export default class DragAndDrop {
             } else {
                 this.#currentDropLocation.prepend(this.#draggableElement);
             }
-
         } else if (this.#currentDropLocation && this.#currentDropLocation.contains(this.#draggableElementPlaceholder)) {
             this.#draggableElementPlaceholder.replaceWith(this.#draggableElement);
         }
 
         this.#currentDropLocation.dispatchEvent(this.#dropElement({
             element: this.#draggableElement,
-            destination: this.#currentDropLocation
+            destination: this.#currentDropLocation,
         }));
         this.#removeHighlightDropPlace();
 
         this.#setInitialStyles(this.#draggableElement);
         document.removeEventListener('mousemove', this.move);
-    }
+    };
 
     #setAbsolutePosition() {
         this.#draggableElement.style.left = (event.pageX - this.#grabCoordinationX).toString().concat('px');
@@ -114,25 +120,25 @@ export default class DragAndDrop {
     /**
      * @param element {HTMLElement}
      */
-    initEventsOnDraggableElements = (element) => {
+    initEventsOnDraggableElements = element => {
         element.addEventListener('mousedown', this.grab);
         element.addEventListener('mouseup', this.drop);
-    }
+    };
 
     /**
      * @param element {HTMLElement}
      * @return {number}
      */
-    #getCenterYElementRelativePage = (element) => {
-        return element.offsetTop + element.offsetHeight / 2;
-    }
+    #getCenterYElementRelativePage = element => {
+        return element.offsetTop + (element.offsetHeight / 2);
+    };
 
     #dropElement = (detail = {}) => {
         return new CustomEvent('dropElement', {
             bubbles: true,
-            detail: detail
+            detail,
         });
-    }
+    };
 
     #setPlaceholderSize(draggableElement) {
         this.#draggableElementPlaceholder.style.width = draggableElement.getBoundingClientRect().width.toString().concat('px');
@@ -165,11 +171,11 @@ export default class DragAndDrop {
 
     #highlightDropPlace = () => {
         this.#locationBelowCursor.classList.add(this.#highlightClass);
-    }
+    };
 
     #removeHighlightDropPlace = () => {
         if (this.#currentDropLocation.classList.contains(this.#highlightClass)) {
-            this.#currentDropLocation.classList.remove(this.#highlightClass)
+            this.#currentDropLocation.classList.remove(this.#highlightClass);
         }
-    }
+    };
 }
