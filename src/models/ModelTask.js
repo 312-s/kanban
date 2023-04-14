@@ -87,9 +87,15 @@ export default class ModelTask {
 
     /**
      * Get JavaScript object of Task
-     * @return {{title}}
+     * @typedef {Object} TaskProperties
+     * @property {string} title - Title of the task
+     * @property {string} detail - Detail info about task
+     * @property {number} order - Sort order of element
+     * @property {string} group - Name of the column to which the task belongs
+     * @property {number} index - Task index in array of the tasks
+     * @return TaskProperties
      */
-    get object() {
+    get taskProperties() {
         return {
             title: this.title,
             detail: this.detail,
@@ -100,11 +106,11 @@ export default class ModelTask {
     }
 
     /**
-     * Convert JavaScript object of Task to JSON sting
+     * Get TaskProperties in JSON format
      * @return {string}
      */
-    deserialize() {
-        return JSON.stringify(this.object);
+    get json() {
+        return JSON.stringify(this.taskProperties);
     }
 
     /**

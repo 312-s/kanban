@@ -62,7 +62,7 @@ export default class Kanban {
      * @return {string}
      */
     #deserializeTasks(taskArray) {
-        return JSON.stringify(taskArray.map(task => task.deserialize()));
+        return JSON.stringify(taskArray.map(task => task.json));
     }
 
     /**

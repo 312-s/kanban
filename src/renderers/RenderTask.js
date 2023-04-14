@@ -22,17 +22,6 @@ export default class RenderTask {
     }
 
     /**
-     * @param tasks {ModelTask[]}
-     * @return {HTMLDivElement[]}
-     */
-    renderManyTasks(tasks) {
-        let tasksElement = new Array(tasks.length);
-        tasks.forEach((task, index) => tasksElement[index] = this.renderTask(task));
-
-        return tasksElement;
-    }
-
-    /**
      * Get order of Task Element
      * @param task {HTMLDivElement}
      * @return {number}
